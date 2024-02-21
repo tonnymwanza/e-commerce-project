@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <title></title>
+    </head>
+    <body>
+        <div class="profilehead">
+            <h4>Edit your profile</h4>
+        </div>
+        <div class="profileform">
+            <form method="POST" action="profile">
+                <div>
+                    <label for="location">Location</label>
+                    {{profileform.location}}
+                </div>
+                <div>
+                    <label for="firstname">Firstname</label>
+                    {{userform.first_name}}
+                </div>
+                <div>
+                    <label for="lastname">Lastname</label>
+                    {{userform.last_name}}
+                </div>
+                <div>
+                    <label label="username">Username</label>
+                    {{userform.username}}
+                </div>
+                <div>
+                    <label bio="email">Email</label>
+                    {{userform.email}}
+                </div>
+                <div>
+                    <label for="bio">Bio</label>
+                    {{profileform.bio}}
+                </div>
+                {% for message in messages %}
+                    <p style="text-align: center;" class="text-danger">{{message}}</p> 
+                {% endfor %}
+                <div class="btn btn-outline-info">
+                    <button type="submit">Save profile</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,230 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>eCommerce HTML-5 Template </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+  <!-- CSS here -->
+      <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body style="margin-top: 0px;">
+  <!-- slider Area Start-->
+  <div class="slider-area ">
+    <!-- Mobile Menu -->
+                    <div class="hero-cap text-center">
+                        <h2>Checkout</h2>
+                    </div>
+  <!-- slider Area End-->
+
+  <!--================Checkout Area =================-->
+  <section class="checkout_area section_padding">
+    <div class="container">
+      
+      <div class="cupon_area">
+        <div class="check_title">
+          <h2>
+            Have a coupon?
+          </h2>
+        </div>
+        <input type="text" placeholder="Enter coupon code" />
+        <a class="tp_btn" href="#">Apply Coupon</a>
+      </div>
+      <div class="billing_details">
+        <div class="row">
+          <div class="col-lg-8">
+            <h3>Billing Details</h3>
+            <form class="row contact_form" action="{% url 'checkout' %}" method="POST">
+              {% csrf_token %}
+              <div class="col-md-6 form-group p_star">
+                <label>Firstname</label>
+                <!-- <input type="text" class="form-control" id="first" name="firstname"/><br> -->
+                {{form.firstname}}
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <label>Lastname</label>
+                <!-- <input type="text" class="form-control" id="last" name="lastname"/><br> -->
+                {{form.lastname}}
+              </div>
+              <!-- <div class="col-md-12 form-group"> -->
+                <!-- <input type="text" class="form-control" id="company" name="company" placeholder="Company name or leave blank" /> -->
+              <!-- </div> -->
+              <div class="col-md-6 form-group p_star">
+                <label>Phone number</label>
+                <!-- <input type="text" class="form-control" id="number" name="phone_number"/><br> -->
+                {{form.phone_number}}
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <label>Email</label>
+                <!-- <input type="text" class="form-control" id="email" name="email"/><br> -->
+                {{form.email}}
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <select class="country_select">
+                  <option value="1">Country</option>
+                  <option value="2">Country</option>
+                  <option value="4">Country</option>
+                </select>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>Address1</label>
+                <input type="text" class="form-control" id="add1" name="address1"/><br>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label>Address2</label>
+                <input type="text" class="form-control" id="add2" name="address2"/><br>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label class="lead" for="city">City</label>
+                {{form.city}}<br>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <label class="lead" for="constituency">Your country</label>
+                {{form.country}}<br>
+              </div>
+              <div class="col-md-12 form-group">
+                <label>Postal code</label>
+                <!-- <input type="text" class="form-control" id="zip" name="postal_code" placeholder="Postcode/ZIP" /><br> -->
+                {{form.postal_code}}
+              </div>
+              <div >
+                <button class="btn btn-outline info" type="submit">Submit</button>
+              </div>
+              <div class="text-danger">
+                {% for message in messages %}
+                <p style="color: red;">{{message}}</p>
+                {% endfor %}
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-4">
+            <div class="order_box">
+              <h2>Your Order</h2>
+              <ul class="list">
+                <li>
+                  <a href="#">Product
+                    <span>Total</span>
+                  </a>
+                </li>
+                {% for cart in cart_items %}
+                <li>
+                  <a href="#">{{cart.product}}
+                    <span class="middle">x {{cart.quantity}}</span>
+                    <span class="last">Ksh {{cart.item_total}}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              <ul class="list list_2">
+                <li>
+                  <a href="#">Subtotal
+                    <span>ksh {{total_price}}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Shipping
+                    <span>Flat rate:Ksh 50.00</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Total
+                    <span>Ksh {{total_price}}</span>
+                  </a>
+                </li>
+              </ul>
+              <div class="payment_item">
+                <div class="radion_btn">
+                  <label for="f-option5">Check payments</label>
+                  <div class="check"></div>
+                </div>
+                <p>
+                  Please send a check to Store Name, Store Street, Store Town,
+                  Store State / County, Store Postcode.
+                </p>
+              </div>
+              <div class="payment_item active">
+                <div class="radion_btn">
+                  <input type="radio" id="f-option6" name="selector" />
+                  <label for="f-option6">M-pesa </label>
+                  <img src="{% static 'img/product/single-product/card.jpg' %}" alt="" />
+                  <div class="check"></div>
+                </div>
+                <p>
+                  You can pay using our different m-pesa options.<br>
+                  <ul class="lead">
+                    <li>- Pay Bill</li><br>
+                    <li>- Send Money</li><br>
+                    <li>- Buy Goods</li>
+                  </ul>
+                </p>
+              </div>
+              <img src="{% static 'assets/img/M-PESA.jpeg' %}" width="300" height="120" style="margin-top: 20px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================End Checkout Area =================-->
+
+
+  <footer>
+    <!-- Footer Start-->
+    <!-- Footer End-->
+</footer>
+	<!-- JS here -->
+	
+		<!-- All JS Custom Plugins Link Here here -->
+    <script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+		
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static './assets/js/popper.min.js' %}"></script>
+    <script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static './assets/js/slick.min.js' %}"></script>
+
+		<!-- One Page, Animated-HeadLin -->
+    <script src="{% static './assets/js/wow.min.js' %}"></script>
+		<script src="{% static './assets/js/animated.headline.js' %}"></script>
+    <script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
+
+		<!-- Scrollup, nice-select, sticky -->
+    <script src="{% static './assets/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static './assets/js/jquery.sticky.js' %}"></script>
+    
+    <!-- contact js -->
+    <script src="{% static './assets/js/contact.js' %}"></script>
+    <script src="{% static './assets/js/jquery.form.js' %}"></script>
+    <script src="{% static './assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static './assets/js/mail-script.js' %}"></script>
+    <script src="{% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+    <script src="{% static './assets/js/plugins.js' %}"></script>
+    <script src="{% static './assets/js/main.js' %}"></script>
+      
+</body>
+
+</html>
